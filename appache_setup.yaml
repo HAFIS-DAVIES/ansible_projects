@@ -1,0 +1,47 @@
+---
+- name: "setup apache and open firewall port"
+  hosts: all
+  become: yes  
+
+  tasks: 
+  - name: " Update APT package index"
+    apt:
+      update_cache: yes
+
+
+  - name: "install apache packages"
+    apt:
+       name: apache2
+       state: present
+
+  - name: " start apache2"
+    service:
+       name: apache2
+       state: started
+    
+  - name: "Allow http services in firewalld"
+    firewalld:
+      service: http
+      permanent: yes
+      state: enabled
+
+  - name: "Allow https services in firewalld"
+    firewalld:
+      service: https
+      permanent: yes
+      state: enabled    
+   
+  - name: "Restart firewalld to load firewall changes"
+    service:
+      name: firewalld
+      state: reloaded    
+
+  - name: "start apache-service"
+    service:
+       name: apache2
+       state: started
+
+  - name: "install telnet"
+    apt:
+      name: telnet
+      state: present  

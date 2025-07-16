@@ -1,0 +1,13 @@
+---
+- name: "Copy file from local to remote clients"
+  hosts: all
+
+  tasks:
+    - name: "copy files"
+      become: true
+      copy:
+        src: /home/ubuntu/some.cfg
+        dest: /tmp
+        owner: ubuntu
+        group: ubuntu  
+        mode: 0644  

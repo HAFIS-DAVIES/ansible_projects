@@ -1,0 +1,20 @@
+---
+- name: "Remote shell script"
+  hosts: all
+  become: true  
+
+  tasks:
+    
+    - name: Copy Shell script to remote servers
+      copy:
+        src: /root/cfile.sh
+        dest: /root/cfile.sh
+        mode: '0755'  
+    
+    
+    - name: " Run shell script"
+      shell: "/root/cfile.sh"
+
+
+
+
